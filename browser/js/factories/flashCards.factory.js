@@ -10,6 +10,7 @@ app.factory('FlashCardsFactory', function($http, $log) {
         params: queryParams
     })
     .then(function (response) {
+        // send a message back here for loaded content/loader???
         return response.data;
     })
     .catch($log.error);

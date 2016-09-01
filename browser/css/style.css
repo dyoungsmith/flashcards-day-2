@@ -1,6 +1,26 @@
 * {
   box-sizing: border-box; }
 
+loader {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form h3 {
+  font-family: Helvetica;
+}
+
+.error {
+  color: red;
+  font-family: Helvetica;
+  font-size: 11px;
+}
+
 .category-button {
   border: 1px solid black;
   background: none;

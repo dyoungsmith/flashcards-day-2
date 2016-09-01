@@ -13,45 +13,83 @@
         
         <div ng-include="'html/statistics.html'"></div>
 
-        <div ng-controller="MainController">
-            <div class="category-buttons">
-                <button class="category-button" ng-repeat="category in categories" ng-click="getCategoryCards(category)" ng-class="{active: selectedCategory === category}">{{category}}</button>
-                <button class="reset category-button" ng-click="getCategoryCards()" ng-class="{active: !selectedCategory}">All Categories</button>
+        <form name="newCardForm" ng-controller="NewCardController">
+            <h3>Create new flashcard</h3>
+
+            <div class="newQuestion">
+                <input type="text" name="question" ng-model="newCard.question" placeholder=" Question" ng-minlength=15 required>
+                <select name="category" ng-model="newCard.category" required>
+                    <option value="" disabled selected>Category</option>
+                    <option value="SQL">SQL</option>
+                    <option value="Express">Express</option>
+                    <option value="Angular">Angular</option>
+                    <option value="Node">Node</option>
+                </select>
+            </div>
+            
+            <div>
+                <span class="error" ng-show="newCardForm.question.$error.required">Please enter question</span>
+            </div>
+            <div>
+                <span class="error" ng-show="newCardForm.question.$error.minlength">Question must be at least 15 characters</span>
+            </div>
+            <div>
+                <span class="error" ng-show="newCardForm.category.$error.required">Please select category</span>
             </div>
 
-            <div
-                ng-repeat="flashCard in flashCards | orderBy : 'question'"
-                class="flash-card">
-                <h3>{{flashCard.category}}</h3>
-                <h1>{{ flashCard.question | uppercase }}</h1>
-                <ul class="flash-card-answers">
-                    <li
-                        ng-repeat="answer in flashCard.answers"
-                        class="flash-card-answer"
-                        ng-click="answerQuestion(answer, flashCard)"
-                        ng-class="{active: flashCard.selectedAnswer === answer}">{{ answer.text }}</li>
-                </ul>
-                <h2
-                    class="answer-feedback"
-                    ng-class="flashCard.answeredCorrectly ? 'correct' : 'incorrect'"
-                    ng-show="flashCard.answered">
-                    <span ng-show="flashCard.answeredCorrectly">Yeah, you got it right!</span>
-                    <span ng-show="!flashCard.answeredCorrectly">Nope, you got it wrong.</span>
-                </h2>
+            <div class="newAnswers" name="answers">
+                <div> 
+                    <input type="text" name="answer1" placeholder=" Answer 1" ng-model="newCard.answers[0].text" ng-maxlength=40>
+                    <input type="checkbox" name="isAnswer1" value="Correct answer" ng-model="newCard.answers[0].correct">
+                    <span class="error" ng-show="newCardForm.answer1.$error.maxlength">Answer must be fewer than 40 characters</span>
+                </div>
+
+                <div>
+                    <input type="text" name="answer2" placeholder=" Answer 2" ng-model="newCard.answers[1].text" ng-maxlength=40>
+                    <input type="checkbox" name="isAnswer2" value="Correct answer" ng-model="newCard.answers[1].correct">
+                    <span class="error" ng-show="newCardForm.answer2.$error.maxlength">Answer must be fewer than 40 characters</span>
+                </div>
+
+                <div>
+                    <input type="text" name="answer3" placeholder=" Answer 3" ng-model="newCard.answers[2].text" ng-maxlength=40>
+                    <input type="checkbox" name="isAnswer3" value="Correct answer" ng-model="newCard.answers[2].correct">
+                    <span class="error" ng-show="newCardForm.answer3.$error.maxlength">Answer must be fewer than 40 characters</span>
+                </div>
+            </div>
+            <button class="submit-newCard" ng-click="submitNewCard(newCard); newCard = cleanCard; newCardForm.$pristine = true">Create!</button>
+        </form>
+
+        <div>
+            <!-- <loader ng-show="!isLoaded"></loader> -->
+            <!-- having trouble with loader ng-show!! -->
+            <loader ng-show="isLoaded"></loader>
+
+            <div class="flashCard-practice">
+                
+                <!-- <flash-card ng-show="isLoaded"></flash-card> -->
+                <flash-card></flash-card>
             </div>
         </div>
 
+        <!-- DEPENDENCIES -->
         <!-- ANGULAR THINGS -->
         <script src="angular.min.js"></script>
+        <script src="angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="js/app.js"></script>
 
         <!-- CONTROLLERS -->
-        <script src="js/controllers/main.controller.js"></script>
         <script src="js/controllers/stats.controller.js"></script>
+        <script src="js/controllers/newCard.controller.js"></script>
 
         <!-- FACTORIES -->
         <script src="js/factories/flashCards.factory.js"></script>
         <script src="js/factories/score.factory.js"></script>
+        <script src="js/factories/newCard.factory.js"></script>
+
+        <!-- DIRECTIVES -->
+        <script src="js/directives/loader/loader.js"></script>
+        <script src="js/directives/flashCard.directive.js"></script>
+        <script src="js/directives/borderOnHover.directive.js"></script>
 
         <!-- FILTERS -->
         <script src="js/filters/cheat.filter.js"></script>

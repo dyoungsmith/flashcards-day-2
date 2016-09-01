@@ -3,12 +3,18 @@ var express = require('express');
 var volleyball = require('volleyball');
 var db = require('./db');
 var FlashCard = db.model('flashcard');
+var routes = require('./routes.js');
+var bodyParser = require('body-parser');
 
 var app = express(); // Create an express app!
 module.exports = app; // Export it so it can be require('')'d
 
 // logging middleware for HTTP requests and responses
 app.use(volleyball);
+
+// body parsing
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // paths to static resources we will establish routes for further down
 var angularPath = path.join(__dirname, '../node_modules/angular');
@@ -24,6 +30,9 @@ app.use(express.static(publicPath));
 
 // If we request the angular source code, serve it up from node_modules
 app.use(express.static(angularPath));
+
+// routes
+app.use('/', routes);
 
 // our main JSON data route
 app.get('/api/cards', function (req, res, next) {
@@ -44,3 +53,5 @@ app.get('/api/cards', function (req, res, next) {
     .catch(next);
 
 });
+
+

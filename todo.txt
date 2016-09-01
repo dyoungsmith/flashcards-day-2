@@ -1,0 +1,10 @@
+- cheat button implements cheat filter
+
+HALP!!
+- getting the loader to work with flashCard directive
+- error messages on create new card
+- STYLING!!
+
+Workshop 4 EC:
+- immediately show created flashcard
+- edit existing flashcard
