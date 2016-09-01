@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // paths to static resources we will establish routes for further down
 var angularPath = path.join(__dirname, '../node_modules/angular');
+var uiRouterPath = path.join(__dirname, '../node_modules/angular-ui-router');
 var publicPath = path.join(__dirname, '../browser');
 
 // __dirname: http://nodejs.org/docs/latest/api/globals.html#globals_dirname
@@ -30,6 +31,7 @@ app.use(express.static(publicPath));
 
 // If we request the angular source code, serve it up from node_modules
 app.use(express.static(angularPath));
+app.use(express.static(uiRouterPath));
 
 // routes
 app.use('/', routes);

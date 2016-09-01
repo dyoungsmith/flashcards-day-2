@@ -1,0 +1,45 @@
+<form name="newCardForm">
+    <h3>Create new flashcard</h3>
+
+    <div class="newQuestion">
+        <input type="text" name="question" ng-model="newCard.question" placeholder=" Question" ng-minlength=15 required>
+        <select name="category" ng-model="newCard.category" required>
+            <option value="" disabled selected>Category</option>
+            <option value="SQL">SQL</option>
+            <option value="Express">Express</option>
+            <option value="Angular">Angular</option>
+            <option value="Node">Node</option>
+        </select>
+    </div>
+    
+    <div>
+        <span class="error" ng-show="newCardForm.question.$error.required">Please enter question</span>
+    </div>
+    <div>
+        <span class="error" ng-show="newCardForm.question.$error.minlength">Question must be at least 15 characters</span>
+    </div>
+    <div>
+        <span class="error" ng-show="newCardForm.category.$error.required">Please select category</span>
+    </div>
+
+    <div class="newAnswers" name="answers">
+        <div> 
+            <input type="text" name="answer1" placeholder=" Answer 1" ng-model="newCard.answers[0].text" ng-maxlength=40>
+            <input type="checkbox" name="isAnswer1" value="Correct answer" ng-model="newCard.answers[0].correct">
+            <span class="error" ng-show="newCardForm.answer1.$error.maxlength">Answer must be fewer than 40 characters</span>
+        </div>
+
+        <div>
+            <input type="text" name="answer2" placeholder=" Answer 2" ng-model="newCard.answers[1].text" ng-maxlength=40>
+            <input type="checkbox" name="isAnswer2" value="Correct answer" ng-model="newCard.answers[1].correct">
+            <span class="error" ng-show="newCardForm.answer2.$error.maxlength">Answer must be fewer than 40 characters</span>
+        </div>
+
+        <div>
+            <input type="text" name="answer3" placeholder=" Answer 3" ng-model="newCard.answers[2].text" ng-maxlength=40>
+            <input type="checkbox" name="isAnswer3" value="Correct answer" ng-model="newCard.answers[2].correct">
+            <span class="error" ng-show="newCardForm.answer3.$error.maxlength">Answer must be fewer than 40 characters</span>
+        </div>
+    </div>
+    <button class="submit-newCard" ng-click="submitNewCard(newCard); newCard = cleanCard; newCardForm.$pristine = true">Create!</button>
+</form>

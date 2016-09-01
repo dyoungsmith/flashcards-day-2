@@ -13,68 +13,20 @@
         
         <div ng-include="'html/statistics.html'"></div>
 
-        <form name="newCardForm" ng-controller="NewCardController">
-            <h3>Create new flashcard</h3>
+        <!-- <button class="newCard category-button" ui-sref="newCard">Create a new card</button> -->
 
-            <div class="newQuestion">
-                <input type="text" name="question" ng-model="newCard.question" placeholder=" Question" ng-minlength=15 required>
-                <select name="category" ng-model="newCard.category" required>
-                    <option value="" disabled selected>Category</option>
-                    <option value="SQL">SQL</option>
-                    <option value="Express">Express</option>
-                    <option value="Angular">Angular</option>
-                    <option value="Node">Node</option>
-                </select>
-            </div>
-            
-            <div>
-                <span class="error" ng-show="newCardForm.question.$error.required">Please enter question</span>
-            </div>
-            <div>
-                <span class="error" ng-show="newCardForm.question.$error.minlength">Question must be at least 15 characters</span>
-            </div>
-            <div>
-                <span class="error" ng-show="newCardForm.category.$error.required">Please select category</span>
-            </div>
+        <menu type="toolbar" id="nav">
+            <menuitem label="Create" ui-sref="newCard"></menuitem>
+            <menuitem label="Flashcards" ui-sref="flashCards"></menuitem>
+        </menu>
 
-            <div class="newAnswers" name="answers">
-                <div> 
-                    <input type="text" name="answer1" placeholder=" Answer 1" ng-model="newCard.answers[0].text" ng-maxlength=40>
-                    <input type="checkbox" name="isAnswer1" value="Correct answer" ng-model="newCard.answers[0].correct">
-                    <span class="error" ng-show="newCardForm.answer1.$error.maxlength">Answer must be fewer than 40 characters</span>
-                </div>
+        <ui-view></ui-view>
 
-                <div>
-                    <input type="text" name="answer2" placeholder=" Answer 2" ng-model="newCard.answers[1].text" ng-maxlength=40>
-                    <input type="checkbox" name="isAnswer2" value="Correct answer" ng-model="newCard.answers[1].correct">
-                    <span class="error" ng-show="newCardForm.answer2.$error.maxlength">Answer must be fewer than 40 characters</span>
-                </div>
-
-                <div>
-                    <input type="text" name="answer3" placeholder=" Answer 3" ng-model="newCard.answers[2].text" ng-maxlength=40>
-                    <input type="checkbox" name="isAnswer3" value="Correct answer" ng-model="newCard.answers[2].correct">
-                    <span class="error" ng-show="newCardForm.answer3.$error.maxlength">Answer must be fewer than 40 characters</span>
-                </div>
-            </div>
-            <button class="submit-newCard" ng-click="submitNewCard(newCard); newCard = cleanCard; newCardForm.$pristine = true">Create!</button>
-        </form>
-
-        <div>
-            <!-- <loader ng-show="!isLoaded"></loader> -->
-            <!-- having trouble with loader ng-show!! -->
-            <loader ng-show="isLoaded"></loader>
-
-            <div class="flashCard-practice">
-                
-                <!-- <flash-card ng-show="isLoaded"></flash-card> -->
-                <flash-card></flash-card>
-            </div>
-        </div>
 
         <!-- DEPENDENCIES -->
         <!-- ANGULAR THINGS -->
         <script src="angular.min.js"></script>
-        <script src="angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="release/angular-ui-router.min.js"></script>
         <script src="js/app.js"></script>
 
         <!-- CONTROLLERS -->
@@ -90,6 +42,11 @@
         <script src="js/directives/loader/loader.js"></script>
         <script src="js/directives/flashCard.directive.js"></script>
         <script src="js/directives/borderOnHover.directive.js"></script>
+
+        <!-- STATES -->
+        <script src="js/states/flashCards.state.js"></script>
+        <script src="js/states/statistics.state.js"></script>
+        <script src="js/states/newCard.state.js"></script>
 
         <!-- FILTERS -->
         <script src="js/filters/cheat.filter.js"></script>
